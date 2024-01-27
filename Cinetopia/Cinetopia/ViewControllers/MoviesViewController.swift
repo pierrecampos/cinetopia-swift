@@ -26,7 +26,7 @@ class MoviesViewController: UIViewController {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Pesquisar"
-        searchBar.searchTextField.backgroundColor = .white
+        searchBar.searchTextField.backgroundColor = .white.withAlphaComponent(0.8)
         searchBar.delegate = self
         return searchBar
     }()
@@ -37,6 +37,7 @@ class MoviesViewController: UIViewController {
         setupNavigationBar()
         addSubviews()
         setupConstraints()
+        setupTapGesture()
     }
     
     private func setupNavigationBar() {
@@ -59,6 +60,16 @@ class MoviesViewController: UIViewController {
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
+    }
+    
+    private func setupTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tapGesture.cancelsTouchesInView = false
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func hideKeyboard() {
+        searchBar.resignFirstResponder()
     }
     
 }
@@ -105,5 +116,9 @@ extension MoviesViewController: UISearchBarDelegate {
         }
         
         tableView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
