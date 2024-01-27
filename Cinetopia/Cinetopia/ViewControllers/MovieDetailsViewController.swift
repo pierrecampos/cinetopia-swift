@@ -90,7 +90,3 @@ class MovieDetailsViewController: UIViewController {
     }
     
 }
-
-#Preview {
-    MovieDetailsViewController(movie: movies[0])
-}
