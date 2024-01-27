@@ -26,7 +26,8 @@ class MoviesViewController: UIViewController {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.placeholder = "Pesquisar"
-        searchBar.searchTextField.backgroundColor = .white.withAlphaComponent(0.8)
+        searchBar.searchTextField.backgroundColor = .white.withAlphaComponent(0.5)
+        searchBar.searchTextField.textColor = .white
         searchBar.delegate = self
         return searchBar
     }()
@@ -70,6 +71,7 @@ class MoviesViewController: UIViewController {
     
     @objc private func hideKeyboard() {
         searchBar.resignFirstResponder()
+        searchBar.setShowsCancelButton(false, animated: true)
     }
     
 }
@@ -118,7 +120,17 @@ extension MoviesViewController: UISearchBarDelegate {
         tableView.reloadData()
     }
     
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = ""
+        searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
     }
 }
