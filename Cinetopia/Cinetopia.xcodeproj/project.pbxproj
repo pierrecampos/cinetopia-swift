@@ -17,9 +17,11 @@
 		8F753BAE2B61CF880012E7AE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F753BAD2B61CF880012E7AE /* HomeViewController.swift */; };
 		8F753BB32B61CF890012E7AE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F753BB22B61CF890012E7AE /* Assets.xcassets */; };
 		8F753BB62B61CF890012E7AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8F753BB42B61CF890012E7AE /* LaunchScreen.storyboard */; };
+		A38EC530ECB4C8149995B1D0 /* Pods_Cinetopia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3D4120AEC90E8D92351FF64 /* Pods_Cinetopia.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		50A6B32E036341F85134B46E /* Pods-Cinetopia.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinetopia.release.xcconfig"; path = "Target Support Files/Pods-Cinetopia/Pods-Cinetopia.release.xcconfig"; sourceTree = "<group>"; };
 		8F20C2232B647613001C68B6 /* Movie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		8F20C2272B647EC1001C68B6 /* MovieTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieTableViewCell.swift; sourceTree = "<group>"; };
 		8F20C2292B648F62001C68B6 /* MovieDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailsViewController.swift; sourceTree = "<group>"; };
@@ -32,6 +34,8 @@
 		8F753BB22B61CF890012E7AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F753BB52B61CF890012E7AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8F753BB72B61CF890012E7AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A0FC389757B888056B59E57C /* Pods-Cinetopia.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Cinetopia.debug.xcconfig"; path = "Target Support Files/Pods-Cinetopia/Pods-Cinetopia.debug.xcconfig"; sourceTree = "<group>"; };
+		B3D4120AEC90E8D92351FF64 /* Pods_Cinetopia.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Cinetopia.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,12 +43,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A38EC530ECB4C8149995B1D0 /* Pods_Cinetopia.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		227935765038104B3F7778E1 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A0FC389757B888056B59E57C /* Pods-Cinetopia.debug.xcconfig */,
+				50A6B32E036341F85134B46E /* Pods-Cinetopia.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		74D71884940A9F8B6CDAA440 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3D4120AEC90E8D92351FF64 /* Pods_Cinetopia.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8F20C2212B6475EB001C68B6 /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +106,8 @@
 			children = (
 				8F753BA82B61CF880012E7AE /* Cinetopia */,
 				8F753BA72B61CF880012E7AE /* Products */,
+				227935765038104B3F7778E1 /* Pods */,
+				74D71884940A9F8B6CDAA440 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -118,9 +142,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8F753BBA2B61CF890012E7AE /* Build configuration list for PBXNativeTarget "Cinetopia" */;
 			buildPhases = (
+				2E245A782F826DE01B9E4E8C /* [CP] Check Pods Manifest.lock */,
 				8F753BA22B61CF880012E7AE /* Sources */,
 				8F753BA32B61CF880012E7AE /* Frameworks */,
 				8F753BA42B61CF880012E7AE /* Resources */,
+				5BDBF4E9B0405D88508986D0 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -175,6 +201,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		2E245A782F826DE01B9E4E8C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Cinetopia-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5BDBF4E9B0405D88508986D0 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cinetopia/Pods-Cinetopia-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Cinetopia/Pods-Cinetopia-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Cinetopia/Pods-Cinetopia-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F753BA22B61CF880012E7AE /* Sources */ = {
@@ -243,7 +311,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -306,7 +374,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -327,6 +395,7 @@
 		};
 		8F753BBB2B61CF890012E7AE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A0FC389757B888056B59E57C /* Pods-Cinetopia.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -349,6 +418,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -358,6 +428,7 @@
 		};
 		8F753BBC2B61CF890012E7AE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 50A6B32E036341F85134B46E /* Pods-Cinetopia.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -380,6 +451,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

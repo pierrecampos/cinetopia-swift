@@ -51,8 +51,8 @@ class MoviesViewController: UIViewController {
         do {
             movies = try await movieService.getMovies()
             tableView.reloadData()
-        } catch (let error){
-           
+        } catch (let error) {
+           print(error)
         }
     }
     
