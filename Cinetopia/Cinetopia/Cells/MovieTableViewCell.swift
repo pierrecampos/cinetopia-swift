@@ -37,9 +37,7 @@ class MovieTableViewCell: UITableViewCell {
     }()
     
     func configureCell(movie: Movie) {
-        moviePosterImageView.kf.indicatorType = .activity
-        let url = URL(string: movie.image)
-        moviePosterImageView.kf.setImage(with: url)
+        moviePosterImageView.setImageFrom(for: movie.image)
         movieTitleLabel.text = movie.title
         movieReleaseDataLabel.text = "Data Lançamento: \(movie.releaseDate)"
     }

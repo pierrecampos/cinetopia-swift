@@ -27,9 +27,7 @@ class MovieDetailsViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 32
-        imageView.kf.indicatorType = .activity
-        let url = URL(string: movie.image)
-        imageView.kf.setImage(with: url)
+        imageView.setImageFrom(for: movie.image)
         return imageView
     }()
     
