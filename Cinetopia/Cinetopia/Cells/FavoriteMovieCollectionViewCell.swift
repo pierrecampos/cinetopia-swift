@@ -21,10 +21,10 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     private lazy var movieTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 12, weight: .medium)
-        label.textColor = .black
+        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.textColor = .white
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = 1
         return label
     }()
     
@@ -44,14 +44,12 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
         stackView.spacing = 12
         stackView.alignment = .center
         stackView.distribution = .equalSpacing
-        stackView.backgroundColor = .white
         return stackView
     }()
     
     // MARK: View Life Cycle
     override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .gray
+        super.init(frame: frame)        
         addSubviews()
         setupConstraints()
     }

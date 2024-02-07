@@ -8,6 +8,10 @@
 import UIKit
 import Kingfisher
 
+
+let movie = Movie(id: 1, title: "Avatar", image: "https://github.com/giovannamoeller/movie-api/blob/main/images/avatar.jpg?raw=true", synopsis: "No exuberante mundo alienigena de Pandora vivom os Na'vi, seres que parecem ser primitivos, mas são altamente evoluidos. Como o ambiente do planeta é tóxico, foram criados os avatares, corpos biológicos controlados pela mente humana que se movimentam livremente en Pandora. Jake Sully, um ex-fuzileiro naval paralítico, volta a andar através de um avatar e se apaixona por uma Na'vi. Esta paixão leva Jake a lutar pela sobrevivência de Pandora.", rate: 9.4, releaseDate: "16/12/2009")
+
+
 class MovieDetailsViewController: UIViewController {
     
     var movie: Movie
@@ -25,8 +29,9 @@ class MovieDetailsViewController: UIViewController {
     private lazy var moviePosterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .scaleAspectFill
         imageView.layer.masksToBounds = true
-        imageView.layer.cornerRadius = 32
+        imageView.layer.cornerRadius = 32        
         imageView.setImageFrom(for: movie.image)
         return imageView
     }()
