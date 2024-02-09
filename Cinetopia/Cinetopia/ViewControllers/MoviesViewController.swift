@@ -166,7 +166,7 @@ extension MoviesViewController: MovieTableViewCellDelegate {
         guard let cell = sender.superview?.superview as? MovieTableViewCell else { return }
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
-        let movieSelected = movies[indexPath.row]
+        let movieSelected = isSearchActive ? filteredMovies[indexPath.row] : movies[indexPath.row]
         movieSelected.changeSelectionStatus()
         
         if movieSelected.isSelected ?? false {
@@ -174,7 +174,7 @@ extension MoviesViewController: MovieTableViewCellDelegate {
         } else {
             MovieManager.shared.remove(movieSelected)
         }
-        
+
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
