@@ -151,6 +151,7 @@ extension MoviesViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
     }
     
@@ -173,7 +174,7 @@ extension MoviesViewController: MovieTableViewCellDelegate {
         } else {
             MovieManager.shared.remove(movieSelected)
         }
-
+        
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
