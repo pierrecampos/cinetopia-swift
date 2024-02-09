@@ -27,6 +27,7 @@ class FavoriteMoviesViewController: UIViewController {
     // MARK: - View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationController?.setNavigationBarHidden(true, animated: true)
         view.backgroundColor = .background
         addSubviews()
         setupConstraints()
@@ -80,8 +81,4 @@ extension FavoriteMoviesViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: collectionView.bounds.width, height: 50)
     }
-}
-
-#Preview {
-    FavoriteMoviesViewController()
 }

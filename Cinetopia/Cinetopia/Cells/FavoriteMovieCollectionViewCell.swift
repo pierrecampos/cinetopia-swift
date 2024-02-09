@@ -21,7 +21,7 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     private lazy var movieTitleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .systemFont(ofSize: 20, weight: .bold)
+        label.font = .systemFont(ofSize: 14, weight: .medium)
         label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = 1
