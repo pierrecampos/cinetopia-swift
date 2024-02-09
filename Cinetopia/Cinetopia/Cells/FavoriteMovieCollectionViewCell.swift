@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol FavoriteMovieCollectionViewCellDelegate: AnyObject {
+    func didSelectFavoriteButton(_ sender: UIButton)
+}
+
 class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     // MARK: - UI Components
     private lazy var moviePosterImageView: UIImageView = {
@@ -47,6 +51,9 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
         return stackView
     }()
     
+    // MARK: - Attributes
+    weak var delegate: FavoriteMovieCollectionViewCellDelegate?
+    
     // MARK: View Life Cycle
     override init(frame: CGRect) {
         super.init(frame: frame)        
@@ -61,7 +68,7 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     // MARK: Class Methods
     public func configureCell(_ movie: Movie) {
         moviePosterImageView.setImageFrom(for: movie.image)
-        movieTitleLabel.text = movie.title
+        movieTitleLabel.text = movie.title        
     }
     
     private func addSubviews() {
@@ -79,6 +86,7 @@ class FavoriteMovieCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func didTapFavoriteButton(_ sender: UIButton) {
+        delegate?.didSelectFavoriteButton(sender)
     }
     
 }

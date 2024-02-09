@@ -9,11 +9,13 @@ import UIKit
 
 class MoviesViewController: UIViewController {
     
+    // MARK: - Attributes
     private var filteredMovies: [Movie] = []
     private var isSearchActive: Bool = false
     private let movieService: MovieService = MovieService()
     private var movies: [Movie] = []
     
+    // MARK: - UI Components
     private lazy var tableView: UITableView =  {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,8 +36,9 @@ class MoviesViewController: UIViewController {
         return searchBar
     }()
     
+    // MARK: - View Life Cycle
     override func viewDidLoad() {
-        super.viewDidLoad()        
+        super.viewDidLoad()
         view.backgroundColor = .background
         setupNavigationBar()
         addSubviews()
@@ -43,16 +46,23 @@ class MoviesViewController: UIViewController {
         setupTapGesture()
         
         Task {
-           await fetchMovies()
+            await fetchMovies()
         }
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
+    // MARK: - Class Methods
     
     private func fetchMovies() async {
         do {
             movies = try await movieService.getMovies()
             tableView.reloadData()
         } catch (let error) {
-           print(error)
+            print(error)
         }
     }
     
@@ -101,6 +111,7 @@ extension MoviesViewController: UITableViewDataSource {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "movieCell", for: indexPath) as? MovieTableViewCell {
             let movie = isSearchActive ? filteredMovies[indexPath.row] : movies[indexPath.row]
             cell.configureCell(movie: movie)
+            cell.delegate = self
             cell.selectionStyle = .none
             return cell
         }
@@ -147,5 +158,23 @@ extension MoviesViewController: UISearchBarDelegate {
         searchBar.text = ""
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.resignFirstResponder()
+    }
+}
+
+extension MoviesViewController: MovieTableViewCellDelegate {
+    func didSelectFavoriteButton(sender: UIButton) {
+        guard let cell = sender.superview?.superview as? MovieTableViewCell else { return }
+        guard let indexPath = tableView.indexPath(for: cell) else { return }
+        
+        let movieSelected = movies[indexPath.row]
+        movieSelected.changeSelectionStatus()
+        
+        if movieSelected.isSelected ?? false {
+            MovieManager.shared.add(movieSelected)
+        } else {
+            MovieManager.shared.remove(movieSelected)
+        }
+        
+        tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }

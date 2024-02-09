@@ -8,8 +8,13 @@
 import UIKit
 import Kingfisher
 
+protocol MovieTableViewCellDelegate: AnyObject {
+    func didSelectFavoriteButton(sender: UIButton)
+}
+
 class MovieTableViewCell: UITableViewCell {
     
+    // MARK: - UI Components
     private lazy var moviePosterImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -36,16 +41,48 @@ class MovieTableViewCell: UITableViewCell {
         return label
     }()
     
+    private lazy var favoriteButton: UIButton = {
+        let button = UIButton();
+        button.translatesAutoresizingMaskIntoConstraints = false
+        let iconImage = UIImage(systemName: "heart")?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
+        button.setImage(iconImage, for: .normal)
+        button.addTarget(self, action: #selector(didTapFavoriteButton), for: .touchUpInside)
+        
+        return button
+    }()
+    
+    // MARK: - Attributes
+    weak var delegate: MovieTableViewCellDelegate?
+    
+    // MARK: - Init
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubviews()
+        setupConstraints()
+        backgroundColor = .background
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: - Class Methods
     func configureCell(movie: Movie) {
         moviePosterImageView.setImageFrom(for: movie.image)
         movieTitleLabel.text = movie.title
         movieReleaseDataLabel.text = "Data Lançamento: \(movie.releaseDate)"
+        
+        let iconFavoriteButton = movie.isSelected ?? false ? "heart.fill" : "heart"
+        let imageFavoriteButton = UIImage(systemName: iconFavoriteButton)?.withTintColor(.buttonBackground, renderingMode: .alwaysOriginal)
+        favoriteButton.setImage(imageFavoriteButton, for: .normal)
     }
     
     private func addSubviews() {
         addSubview(moviePosterImageView)
         addSubview(movieTitleLabel)
         addSubview(movieReleaseDataLabel)
+        contentView.addSubview(favoriteButton)
     }
     
     private func setupConstraints() {
@@ -60,19 +97,18 @@ class MovieTableViewCell: UITableViewCell {
             movieTitleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             movieReleaseDataLabel.topAnchor.constraint(equalTo: movieTitleLabel.bottomAnchor, constant: 16),
-            movieReleaseDataLabel.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 16)
+            movieReleaseDataLabel.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 16),
+            
+            favoriteButton.topAnchor.constraint(equalTo: movieReleaseDataLabel.bottomAnchor, constant: 8),
+            favoriteButton.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 16),
+            favoriteButton.heightAnchor.constraint(equalToConstant: 20),
+            favoriteButton.widthAnchor.constraint(equalToConstant: 20),
         ])
     }
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        addSubviews()
-        setupConstraints()
-        backgroundColor = .background
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    @objc
+    private func didTapFavoriteButton(sender: UIButton) {
+        delegate?.didSelectFavoriteButton(sender: sender)
     }
     
     override func awakeFromNib() {
