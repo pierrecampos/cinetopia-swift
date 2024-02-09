@@ -72,7 +72,7 @@ extension FavoriteMoviesViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "FavoriteCollectionReusableView", for: indexPath) as? FavoriteCollectionReusableView {
-            headerView.setupTitle("Meus filmes favortios")
+            headerView.setupTitle("Meus Filmes Favoritos")
             return headerView
         }
         return UICollectionReusableView()
