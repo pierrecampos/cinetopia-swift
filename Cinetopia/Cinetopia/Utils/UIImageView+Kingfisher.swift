@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 extension UIImageView {
-    func setImageFrom(for urlString: String) {
+    func setImageFrom(for urlString: String?) {
         self.kf.indicatorType = .activity
-        self.kf.setImage(with: URL(string: urlString), placeholder: UIImage(named: "no-image"), options: [.transition(.fade(0.5))])
+        self.kf.setImage(with: URL(string: urlString ?? "no-image"), placeholder: UIImage(named: "no-image"), options: [.transition(.fade(0.5))])
     }
 }

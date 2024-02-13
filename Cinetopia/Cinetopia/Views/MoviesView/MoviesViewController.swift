@@ -14,8 +14,7 @@ protocol MoviesViewControllerToPresenterProtocol: AnyObject {
 class MoviesViewController: UIViewController {
     
     // MARK: - Attributes
-    private var presenter: MoviesPresenterToViewControllerProtocol?
-    
+    private var presenter: MoviesPresenterToViewControllerProtocol?    
     private var mainView: MoviesView?
     
     // MARK: - Init
@@ -61,7 +60,9 @@ class MoviesViewController: UIViewController {
 
 extension MoviesViewController: MoviesViewControllerToPresenterProtocol {
     func didSelectMovie(_ movie: Movie) {
-        let detailsVC = MovieDetailsViewController(movie: movie)
+        let view = MovieDetailsView()
+        let presenter = MovieDetailsPresenter(movie: movie, view: view)
+        let detailsVC = MovieDetailsViewController(presenter: presenter, mainView: view)
         navigationController?.pushViewController(detailsVC, animated: true)
     }  
 }
