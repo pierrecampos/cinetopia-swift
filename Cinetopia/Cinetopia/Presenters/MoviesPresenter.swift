@@ -24,11 +24,12 @@ class MoviesPresenter: MoviesPresenterToViewControllerProtocol {
     // MARK: - Attributes
     private var controller: MoviesViewControllerToPresenterProtocol?
     private var view: MoviesViewProtocol?
-    private var movieService: MovieService = MovieService()
+    private var interactor: MoviesInteractorToPresenterProtocol?
     
     // MARK: - Init
-    init(view: MoviesViewProtocol) {
+    init(view: MoviesViewProtocol, interactor: MoviesInteractorToPresenterProtocol) {
         self.view = view
+        self.interactor = interactor
     }
     
     // MARK: - MoviesViewControllerToPresenterProtocol
@@ -53,7 +54,7 @@ class MoviesPresenter: MoviesPresenterToViewControllerProtocol {
     // MARK: - Class Methods
     private func fetchMovies() async {
         do {
-            let movies = try await movieService.getMovies()
+            guard let movies = try await interactor?.getMovies() else { return }
             view?.setupView(with: movies)
             view?.reloadData()
         } catch (let error) {
@@ -65,12 +66,16 @@ class MoviesPresenter: MoviesPresenterToViewControllerProtocol {
 extension MoviesPresenter: MoviesPresenterToViewProtocol {
     func didSelect(_ movie: Movie) {
         controller?.didSelectMovie(movie)
-        
     }
     
     func didSelectFavoriteButton(_ movie: Movie) {
         movie.changeSelectionStatus()
-        MovieManager.shared.add(movie)
+        
+        if movie.isSelected ?? false {
+            MovieManager.shared.add(movie)
+        } else {
+            MovieManager.shared.remove(movie)
+        }
     }
     
     func didSearchText(_ searchBar: UISearchBar, textDidChange searchText: String, _ movies: [Movie], _ filteredMovies: inout [Movie]) {

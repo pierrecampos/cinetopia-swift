@@ -64,9 +64,7 @@ extension MoviesViewController: MoviesViewControllerToPresenterProtocol {
     func didSelectMovie(_ movie: Movie) {
         let detailsVC = MovieDetailsViewController(movie: movie)
         navigationController?.pushViewController(detailsVC, animated: true)
-    }
-    
-    
+    }  
 }
 
 

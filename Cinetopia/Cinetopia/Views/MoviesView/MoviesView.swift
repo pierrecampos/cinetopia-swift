@@ -11,7 +11,6 @@ protocol MoviesViewProtocol: AnyObject {
     func setPresenter(_ presenter: MoviesPresenterToViewProtocol)
     func setupView(with movies: [Movie])
     func reloadData()
-    func navigateToMovieDetails(movie: Movie)
     func reloadRow(at indexPath: IndexPath)
     func toggle(_ isActive: Bool)
 }
@@ -108,8 +107,7 @@ extension MoviesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let movie = isSearchActive ? filteredMovies[indexPath.row] : movies[indexPath.row]
-        let detailsVC = MovieDetailsViewController(movie: movie)
-        //        navigationController?.pushViewController(detailsVC, animated: true)
+        presenter?.didSelect(movie)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -124,14 +122,7 @@ extension MoviesView: MovieTableViewCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         
         let movieSelected = isSearchActive ? filteredMovies[indexPath.row] : movies[indexPath.row]
-        movieSelected.changeSelectionStatus()
-        
-        if movieSelected.isSelected ?? false {
-            MovieManager.shared.add(movieSelected)
-        } else {
-            MovieManager.shared.remove(movieSelected)
-        }
-        
+        presenter?.didSelectFavoriteButton(movieSelected)
         tableView.reloadRows(at: [indexPath], with: .automatic)
     }
 }
@@ -150,10 +141,6 @@ extension MoviesView: MoviesViewProtocol {
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
-    }
-    
-    func navigateToMovieDetails(movie: Movie) {
-        
     }
     
     func reloadRow(at indexPath: IndexPath) {
