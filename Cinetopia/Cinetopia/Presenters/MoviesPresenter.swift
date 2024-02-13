@@ -32,13 +32,10 @@ class MoviesPresenter: MoviesPresenterToViewControllerProtocol {
         self.interactor = interactor
     }
     
-    // MARK: - MoviesViewControllerToPresenterProtocol
-    
+    // MARK: - MoviesPresenterToViewControllerProtocol
     func setViewController(_ viewController: MoviesViewControllerToPresenterProtocol) {
         self.controller = viewController
     }
-    
-    // MARK: - MoviesPresenterToViewControllerProtocol
     
     func viewDidLoad() {
         view?.setPresenter(self)

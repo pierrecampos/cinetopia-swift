@@ -1,14 +1,22 @@
 //
-//  FavoriteMoviesViewController.swift
+//  FavoriteMoviesView.swift
 //  Cinetopia
 //
-//  Created by Pierre Campos Dias on 02/02/24.
+//  Created by Pierre Campos Dias on 13/02/24.
 //
 
 import UIKit
 
-class FavoriteMoviesViewController: UIViewController {
+protocol FavoriteMoviesViewProtocol: AnyObject {
+    func setPresenter(_ presenter: FavoriteMoviesPresenterToViewProtocol)
+    func reloadData()
+}
+
+
+class FavoriteMoviesView: UIView {
     
+    // MARK: - Attributes
+    private var presenter: FavoriteMoviesPresenterToViewProtocol?
     
     // MARK: - UI Components
     private lazy var collectionView: UICollectionView = {
@@ -24,37 +32,46 @@ class FavoriteMoviesViewController: UIViewController {
         return collectionView
     }()
     
-    // MARK: - View Life Cycle
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
-        view.backgroundColor = .background
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)    
+        backgroundColor = .background
         addSubviews()
         setupConstraints()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        collectionView.reloadData()
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Class Methods
-    
     private func addSubviews() {
-        view.addSubview(collectionView)
+        addSubview(collectionView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
         ])
     }
+    
 }
 
-extension FavoriteMoviesViewController: UICollectionViewDataSource {
+extension FavoriteMoviesView: FavoriteMoviesViewProtocol {
+    func setPresenter(_ presenter: FavoriteMoviesPresenterToViewProtocol) {
+        self.presenter = presenter
+    }
+    
+    func reloadData() {
+        collectionView.reloadData()
+    }   
+    
+}
+
+extension FavoriteMoviesView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return MovieManager.shared.favoritesMovies.count
     }
@@ -79,7 +96,7 @@ extension FavoriteMoviesViewController: UICollectionViewDataSource {
     }
 }
 
-extension FavoriteMoviesViewController: UICollectionViewDelegateFlowLayout {
+extension FavoriteMoviesView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width/3, height: 200)
     }
@@ -89,17 +106,14 @@ extension FavoriteMoviesViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
-extension FavoriteMoviesViewController: FavoriteMovieCollectionViewCellDelegate {
+extension FavoriteMoviesView: FavoriteMovieCollectionViewCellDelegate {
     func didSelectFavoriteButton(_ sender: UIButton) {
         guard let cell = sender.superview?.superview as? FavoriteMovieCollectionViewCell else { return }
         guard let indexPath = collectionView.indexPath(for: cell) else { return }
         
         let selectedMovie = MovieManager.shared.favoritesMovies[indexPath.item]
-        selectedMovie.changeSelectionStatus()
-        
-        MovieManager.shared.remove(selectedMovie)
+        presenter?.didSelectFavoriteButton(selectedMovie)
         collectionView.reloadData()
     }
-    
-    
 }
+
