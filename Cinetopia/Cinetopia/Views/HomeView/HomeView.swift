@@ -1,14 +1,21 @@
 //
-//  ViewController.swift
+//  HomeView.swift
 //  Cinetopia
 //
-//  Created by Pierre Campos Dias on 24/01/24.
+//  Created by Pierre Campos Dias on 13/02/24.
 //
 
 import UIKit
 
-class HomeViewController: UIViewController {
+protocol HomeViewProtocol: AnyObject {
+    func setPresenter(_ presenter: HomePresenterToViewProtocol)
+}
+
+class HomeView: UIView {
+    // MARK: - Attributes
+    private var presenter: HomePresenterToViewProtocol?
     
+    // MARK: - UI Components
     private lazy var logoImageView: UIImageView = {
         let imageView = UIImageView(image: .logo)
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,27 +62,29 @@ class HomeViewController: UIViewController {
         return stackView
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        view.backgroundColor = .background
+    // MARK: - Init
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        backgroundColor = .background
         addSubviews()
         setupConstraints()
     }
     
-    @objc private func buttonPressed() {
-        navigationController?.pushViewController(TabBarController(), animated: true)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Class Methods
     private func addSubviews() {
-        view.addSubview(stackView)
+        addSubview(stackView)
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -64),
-            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            stackView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            stackView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor, constant: -64),
+            stackView.leadingAnchor.constraint(equalTo: safeAreaLayoutGuide.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: safeAreaLayoutGuide.trailingAnchor),
             
             welcomeButton.heightAnchor.constraint(equalToConstant: 64),
             welcomeButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 64),
@@ -83,6 +92,14 @@ class HomeViewController: UIViewController {
         ])
     }
     
-    
+    @objc private func buttonPressed() {
+        presenter?.didContinueButtonTapped()
+    }
 }
 
+extension HomeView: HomeViewProtocol {
+    func setPresenter(_ presenter: HomePresenterToViewProtocol) {
+        self.presenter = presenter
+    }
+    
+}
