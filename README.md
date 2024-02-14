@@ -45,11 +45,13 @@ A aplicação Cinetopia é um aplicativo iOS que exibe a lista de filmes com mai
 
 ## Como Usar
 
-Quando você realizar o download do projeto, deverá descompactar o arquivo e entrar na pasta descompactada. Dentro dessa pasta, haverá um arquivo com a extensão `.xcodeproj`, você deve dar duplo clique nesse arquivo, que abrirá diretamente no XCode. 
-
-Com o projeto aberto no XCode, você consegue visualizar todas as pastas e arquivos.
-
-Para rodar o seu projeto, você deve clicar no botão de play na parte superior do XCode. Você também pode alterar o simulador em que o aplicativo será exibido, e então, o projeto será aberto no simulador de sua preferência.
+1. Realize o download do projeto;
+2. Descompacte o arquivo;
+3. Abra o terminal dentro da pasta Cinetopia;
+4. No terminal execute o comando `pod install` para realizar o download das dependências (necessário ter o gerenciador [CocoaPods](https://guides.cocoapods.org/using/getting-started.html) instalado);
+5. Após a instalação das dependências, dê duplo clique no arquivo `Cinetopia.xcodeproj`, que abrirá diretamente no XCode;
+6. Com o projeto aberto no XCode, você consegue visualizar todas as pastas e arquivos;
+7. Para rodar o seu projeto, você deve clicar no botão de play na parte superior do XCode. Você também pode alterar o simulador em que o aplicativo será exibido, e então, o projeto será aberto no simulador de sua preferência.
 
 
 ## Créditos
